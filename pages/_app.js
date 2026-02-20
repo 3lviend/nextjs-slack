@@ -29,17 +29,31 @@ export default function SupabaseSlackClone({ Component, pageProps }) {
       }
     }
 
-    supabase.auth.getSession().then(({ data: { session } }) => saveSession(session))
+    let authListener = null
+    
+    if (supabase?.auth) {
+      supabase.auth.getSession().then(({ data: { session } }) => saveSession(session)).catch(console.error)
 
-    const { subscription: authListener } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        console.log(session)
-        saveSession(session)
+      try {
+        const authStateChange = supabase.auth.onAuthStateChange(
+          async (event, session) => {
+            console.log(session)
+            saveSession(session)
+          }
+        )
+        // Handle both possible return structures
+        authListener = authStateChange?.data?.subscription || authStateChange?.subscription
+      } catch (error) {
+        console.error('Error setting up auth listener:', error)
       }
-    )
+    } else {
+      console.warn('Supabase is not properly configured. Please check your environment variables (NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY).')
+    }
 
     return () => {
-      authListener.unsubscribe()
+      if (authListener && typeof authListener.unsubscribe === 'function') {
+        authListener.unsubscribe()
+      }
     }
   }, [])
 
