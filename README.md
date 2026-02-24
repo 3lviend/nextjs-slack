@@ -14,6 +14,10 @@ This is a full-stack Slack clone example using:
 
 ![Demo animation gif](./public/slack-clone-demo.gif)
 
+## How to Setup
+
+[SETUP_INSTRUCTIONS.md](./SETUP_INSTRUCTIONS.md) - Detailed step-by-step setup guide
+
 ## Deploy with Vercel
 
 The Vercel deployment will guide you through creating a Supabase account and project. After installation of the Supabase integration, all relevant environment variables will be set up so that the project is usable immediately after deployment 🚀
