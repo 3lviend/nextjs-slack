@@ -119,3 +119,7 @@ We can use these details to provide fine-grained control over what each user can
 - [Supabase](https://supabase.com)
 
 Supabase is open source, we'd love for you to follow along and get involved at https://github.com/supabase/supabase
+
+- Original Repo
+
+https://github.com/supabase/supabase/tree/master/examples/slack-clone/nextjs-slack-clone
